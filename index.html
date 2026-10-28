@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101222">
+  <meta name="description" content="A tiny escape into the extraordinary.">
+  <title>Little Orbit — Find Your Next Escape</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --background: #101222;
+      --text: #f6f3eb;
+      --muted: #aaaabb;
+      --accent: #d5ff7f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: system-ui, sans-serif;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 6px;
+    }
+
+    .container {
+      width: min(1120px, 90%);
+      margin: auto;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 0;
+      border-bottom: 1px solid #ffffff20;
+    }
+
+    .logo { font-size: 22px; font-weight: 850; }
+    .logo span { color: var(--accent); }
+
+    .nav-link { color: var(--muted); font-size: 14px; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      align-items: center;
+      gap: 48px;
+      padding: 90px 0 70px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: clamp(52px, 7vw, 88px);
+      line-height: 1.02;
+      letter-spacing: -5px;
+      margin: 22px 0;
+    }
+
+    h1 em {
+      color: var(--accent);
+      font-family: Georgia, serif;
+      font-weight: normal;
+    }
+
+    .description {
+      max-width: 400px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .primary {
+      display: inline-block;
+      background: var(--accent);
+      color: #171c12;
+      border: 0;
+      border-radius: 100px;
+      padding: 17px 25px;
+      margin-top: 20px;
+      font-weight: 750;
+      transition: transform .2s, background .2s;
+    }
+
+    .primary:hover {
+      transform: translateY(-3px);
+      background: #e2ffa8;
+    }
+
+    .universe {
+      position: relative;
+      min-height: 380px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid #ffffff15;
+      border-radius: 46% 46% 20px 20px;
+      background:
+        radial-gradient(circle at 20% 25%, white 1px, transparent 2px),
+        radial-gradient(circle at 80% 15%, white 1px, transparent 2px),
+        radial-gradient(circle at 72% 76%, white 1px, transparent 2px),
+        radial-gradient(circle at 18% 80%, white 1px, transparent 2px),
+        radial-gradient(ellipse at center, #333259, #17192d 70%);
+    }
+
+    .planet {
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle at 30% 25%, #ffe4b2, #ec9c8e 40%, #956bb5 75%, #42365f
+      );
+      box-shadow: 0 0 80px #bd8fe833, inset -20px -15px 35px #241b4655;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .ring {
+      position: absolute;
+      width: 320px;
+      height: 95px;
+      border: 17px solid #d5ff7f90;
+      border-top-color: #d5ff7f25;
+      border-radius: 50%;
+      transform: rotate(-28deg);
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 22px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #dddded;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    h2 { font-size: 25px; letter-spacing: -1px; }
+    .section-heading span { color: var(--muted); font-size: 13px; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 27px;
+      border: 1px solid #ffffff18;
+      border-radius: 20px;
+      background: #ffffff04;
+      transition: transform .2s, border-color .2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #d5ff7f70;
+    }
+
+    .icon { font-size: 32px; }
+    .card h3 { margin: 22px 0 10px; font-size: 19px; }
+    .card p { color: var(--muted); line-height: 1.7; font-size: 14px; }
+    .tag { color: var(--accent); font-size: 12px; }
+
+    #destination {
+      min-height: 54px;
+      margin-top: 20px;
+      color: var(--accent);
+      line-height: 1.6;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 30px 0;
+      margin-top: 70px;
+      border-top: 1px solid #ffffff20;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @keyframes float {
+      50% { transform: translateY(-15px); }
+    }
+
+    @media (max-width: 750px) {
+      .hero { grid-template-columns: 1fr; padding-top: 55px; gap: 20px; }
+      h1 { letter-spacing: -3px; }
+      .universe { min-height: 340px; }
+      .cards { grid-template-columns: 1fr; }
+      .section-heading, footer { flex-direction: column; gap: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav aria-label="Main navigation">
+      <a class="logo" href="./">little orbit<span>✳</span></a>
+      <a class="nav-link" href="#explore">Explore the possibilities ↗</a>
+    </nav>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <div class="eyebrow">For the endlessly curious</div>
+          <h1 id="hero-title">Less ordinary.<br>More <em>out there.</em></h1>
+          <p class="description">
+            Step away from the everyday. Discover imaginary worlds,
+            unexpected adventures, and a little room to dream.
+          </p>
+          <button class="primary" id="surprise" type="button">
+            Find my next escape ↗
+          </button>
+          <p id="destination" role="status" aria-live="polite">
+            Your next adventure is one click away.
+          </p>
+        </div>
+
+        <div class="universe" role="img"
+             aria-label="A peach and violet planet with a lime green ring">
+          <div class="planet"></div>
+          <div class="ring"></div>
+          <span class="caption">Somewhere beyond ordinary</span>
+        </div>
+      </section>
+
+      <section id="explore" aria-labelledby="explore-title">
+        <div class="section-heading">
+          <h2 id="explore-title">Pick a state of mind.</h2>
+          <span>No packing required.</span>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <span class="icon" aria-hidden="true">☾</span>
+            <h3>The quiet side</h3>
+            <p>Moonlit landscapes and slow mornings.
+               A softer place to let your thoughts wander.</p>
+            <span class="tag">01 / UNWIND</span>
+          </article>
+          <article class="card">
+            <span class="icon" aria-hidden="true">✺</span>
+            <h3>Chase the strange</h3>
+            <p>Neon deserts and upside-down oceans.
+               Take the scenic route through your imagination.</p>
+            <span class="tag">02 / DISCOVER</span>
+          </article>
+          <article class="card">
+            <span class="icon" aria-hidden="true">↗</span>
+            <h3>A fresh perspective</h3>
+            <p>New horizons, bigger questions.
+               Sometimes all you need is a different orbit.</p>
+            <span class="tag">03 / REIMAGINE</span>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>little orbit © <span id="year"></span></span>
+      <span>A small corner of a very big universe.</span>
+    </footer>
+  </div>
+
+  <script>
+    const escapes = [
+      "Destination: a floating garden above the clouds. Stay a while.",
+      "Destination: a violet ocean beneath three moons. Breathe deeply.",
+      "Destination: a tiny bookstore on Saturn's rings. Find your story.",
+      "Destination: a glowing forest where the stars take root.",
+      "Destination: a quiet café at the edge of the universe."
+    ];
+
+    let previous = -1;
+
+    document.getElementById("surprise").addEventListener("click", () => {
+      let next;
+      do {
+        next = Math.floor(Math.random() * escapes.length);
+      } while (next === previous);
+
+      previous = next;
+      document.getElementById("destination").textContent = escapes[next];
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
